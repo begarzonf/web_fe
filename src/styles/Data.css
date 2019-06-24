@@ -1,0 +1,175 @@
+body {
+  background: #EEE;
+  margin: 0;
+  padding: 0;
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.login{
+
+  margin-left: 20%;
+  margin-right: 20%;
+  text-align: center;
+  border: 10px solid;
+  border-image-source: linear-gradient(45deg,#4A00E0,#8E2DE2);
+  border-image-slice: 1;
+  background: #FFFFFF; 
+  
+}
+
+.OptionCard{
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.createCard{
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.cardContent{
+  margin: 0 auto;
+  text-align: center;
+  background-color: whitesmoke;
+  width: 600px;
+  height: 280px;
+  border-radius: 25px;
+}
+
+input{
+  padding: 16px;
+  border: none;
+  border-bottom: 2px solid #694ed6;
+  margin: 10px 0;
+  transition: .25s all;
+}
+
+input:focus{
+  outline: none;
+  box-shadow: 0 0 10px rgba(0,0,0,.125);
+  border: 2px solid #694ed6;
+  border-radius: 10px;
+  transition: .25s all;
+}
+
+.cardTitle{
+  border-radius: 25px 25px 0px 0px;
+  background: #694ed6;
+  padding: 10px 0 20px 0;
+  color:white;
+  font-size: 25px;
+}
+
+.upload{
+  width: 100%;
+  display: inline-block;
+  margin: 0 auto;
+  margin-right: 10px;
+  text-align: center;
+  background: #694ed6;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 16px;
+  width: 180px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.upload:hover{
+  background: white;
+  border: #694ed6 solid;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 16px;
+  width: 180px;
+  color: #694ed6;
+  font-size: 20px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.btn{
+  border: none;
+  background: #694ed6;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 5px;
+  width: 180px;
+  height: 60px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
+  
+}
+
+.folder-container{
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  text-align: center;
+  color: black;
+  float: left;
+  margin: 20px;
+  cursor: pointer;
+}
+
+.folder-container:hover{
+  background-color: rgba(0, 0, 0, 0.2)
+}
+
+
+.listContainer{
+  margin-left: 10px;
+}
+
+.bottom-right-image{
+  position: absolute;
+  top: 145px;
+  right: 5px;
+}
+
+
+
+
+@media only screen and (max-width: 390px)
+{
+  .login{
+    width: 100%;
+    padding: 16px 0;
+  }
+  
+  .login_btn {
+    width: 100%;
+  }
+}
