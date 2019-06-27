@@ -25,6 +25,47 @@
 
 <script>
 import axios from 'axios'
+import * as firebase from "firebase/app";
+    import "firebase/messaging";
+    var firebaseToken = ""
+    const firebaseConfig = {
+        apiKey: "AIzaSyDE7JTD40N6qE3eK8MNoyr0RLOeigZ1iNs",
+        authDomain: "arquitecturasoftware-2a62f.firebaseapp.com",
+        databaseURL: "https://arquitecturasoftware-2a62f.firebaseio.com",
+        projectId: "arquitecturasoftware-2a62f",
+        storageBucket: "arquitecturasoftware-2a62f.appspot.com",
+        messagingSenderId: "677121396392",
+        appId: "1:677121396392:web:aacf0dadc7a40b1b",
+        vapidKey: 'BFbSOjbEqXyX-ek63Qkox-5NvnDUZd7bWQy9zWx9YbntHLJ-B_4iEtxQxF0PBMiJGOhsXmm2qYkxOhb1Uupxpkw'
+    }
+    firebase.initializeApp(firebaseConfig);
+    const messaging = firebase.messaging();
+    messaging.usePublicVapidKey(firebaseConfig.vapidKey);
+    messaging.requestPermission().then(function() {
+        console.log('Notification permission granted.');
+        messaging.getToken().then(function(currentToken) {
+            if (currentToken) {
+                console.log("el token es ");
+                console.log(currentToken);
+                firebaseToken = currentToken
+                messaging.onMessage(function(payload) {
+                    alert(payload.notification.body)
+                    console.log('Message received. ', payload);
+                // ...
+                });
+            } else {
+                console.log('No Instance ID token available');
+            }
+        }).catch(function(err) {
+            console.log('An error occurred while retrieving token. ', err);
+        });
+    }).catch(function(err) {
+            console.log('Unable to get permission to notify.', err);
+    });
+
+
+
+
 export default {
     name: 'showLogin',
     data(){
@@ -63,7 +104,7 @@ export default {
                     email: "`+this.email+`"
                     password: "`+this.password+`"
                     mobil: "false"
-                    messaging: "pruebaaaaa"
+                    messaging: "`+firebaseToken+`"
                 }){
                     advise
                     token

@@ -2,12 +2,15 @@
     <div  class="login">
         <div style="clear:both;"></div>
             <button class="btn"  @click="soap">soap</button>
-            <img v-bind:src="image64"/>
+            <div v-for="(image,index) in image64" :key="index">
+              <img v-bind:src="image"/>
+            </div>
+            
     </div>
 </template>
 
 <script>
-    import axios from 'axios';
+    //import axios from 'axios';
     export default {
         name: 'ShowData',
         data(){
@@ -21,7 +24,7 @@
                 showCreateFolder: false,
                 showOptions: false,
                 folderOptionName: "",
-                image64:"",
+                image64:[],
                 folderName: "",
                 MoveToShow: false,
                 number: 1,
@@ -52,11 +55,16 @@
                 }
                 }`
         })
-                let imagebase64= res.data.data.soapConsume.data.image64
-                this.image64 = "data:image/jpeg;base64,"+imagebase64
-                 */
-                let prueba = "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo4Njc4OTc4NDJEMzUxMUUzOTFBM0I3RjJCMjVEOEI2RCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo4Njc4OTc4NTJEMzUxMUUzOTFBM0I3RjJCMjVEOEI2RCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjg2Nzg5NzgyMkQzNTExRTM5MUEzQjdGMkIyNUQ4QjZEIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjg2Nzg5NzgzMkQzNTExRTM5MUEzQjdGMkIyNUQ4QjZEIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+mX0bwAAAAL9JREFUeNpsz78LgUEcx/F7OIOUUga7Tf4LJaWsZvWUXTZRSlJYKAazbIqyK4t/wKiUgcGkSH6/v3VyxadeXU/3uXu+57jLmDIJIowdrhgi+9n0wIcuDlijigf6eH2KGhXk0MEZDSQwgYOnXChFFzMUzeEUxvCbg2nkpRjBXX0Tt0oZzLHQ6jctM9tKCqihru2BrbTNWkAJI3n1BgH1PyHcsNXmV/LiKS5WyYskBjhKsYcTyohaxb3MhqZ8vAUYAP8OKf0qLt2tAAAAAElFTkSuQmCC"
-                this.image64 = "data:image/jpeg;base64,"+prueba
+                let imagebase64= res.data.data.soapConsume.data.image_base64
+                for(i=0;i<imagebase64.lenght;i++){
+                this.image64.push("data:image/jpeg;base64,"+imagebase64[i])
+                }
+                */
+
+                let prueba= "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo4Njc4OTc4NDJEMzUxMUUzOTFBM0I3RjJCMjVEOEI2RCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo4Njc4OTc4NTJEMzUxMUUzOTFBM0I3RjJCMjVEOEI2RCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjg2Nzg5NzgyMkQzNTExRTM5MUEzQjdGMkIyNUQ4QjZEIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjg2Nzg5NzgzMkQzNTExRTM5MUEzQjdGMkIyNUQ4QjZEIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+mX0bwAAAAL9JREFUeNpsz78LgUEcx/F7OIOUUga7Tf4LJaWsZvWUXTZRSlJYKAazbIqyK4t/wKiUgcGkSH6/v3VyxadeXU/3uXu+57jLmDIJIowdrhgi+9n0wIcuDlijigf6eH2KGhXk0MEZDSQwgYOnXChFFzMUzeEUxvCbg2nkpRjBXX0Tt0oZzLHQ6jctM9tKCqihru2BrbTNWkAJI3n1BgH1PyHcsNXmV/LiKS5WyYskBjhKsYcTyohaxb3MhqZ8vAUYAP8OKf0qLt2tAAAAAElFTkSuQmCC"
+                for(let i=0;i<5;i++){
+                this.image64.push("data:image/jpeg;base64,"+prueba)
+                }
 
                 
             }
