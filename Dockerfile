@@ -17,5 +17,6 @@ RUN npm install cors --save
 RUN npm install downloadjs
 RUN npm install --save firebase
 
+EXPOSE 8050
 # start app
 CMD ["npm", "run", "serve"]

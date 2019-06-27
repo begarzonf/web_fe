@@ -7,8 +7,5 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - '.:/app'
-      - '/app/node_modules'
     ports:
-      - '8050:8080'
+      - '8050:8050'
