@@ -13,8 +13,10 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      //name: 'home',
+      //component: Home
+      name: 'login',
+      component: Login
     },
     {
       path: '/login',
@@ -30,6 +32,11 @@ export default new Router({
       path: '/Data',
       name: 'Data',
       component: Data
+    },
+    {
+      path: '/soap',
+      name: 'home',
+      component: Home
     },
 
   ]

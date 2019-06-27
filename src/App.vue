@@ -6,6 +6,7 @@
       <router-link v-if="showLogin"   tag='button'    class="navButn"  to="/signUp">Sign Up</router-link>
       <router-link v-if="showData"    tag='button'    class="navButn"  to="/Data"  >Archivos</router-link>
       <button      v-if="showData"    @click="logOut" class="navButn"              >logOut</button>
+      <router-link v-if="showData"    tag='button'    class="navButn"  to="/soap"  >Soap</router-link>
       <!--
       <router-link    tag='button'                    class="navButn"  to="/"      >Home</router-link>
         <button @click="getStatus">status</button>|

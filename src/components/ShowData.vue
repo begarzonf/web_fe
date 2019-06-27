@@ -107,6 +107,41 @@
 <script>
     import axios from 'axios';
     import download from 'downloadjs'
+    import * as firebase from "firebase/app";
+    import "firebase/messaging";
+    const firebaseConfig = {
+        apiKey: "AIzaSyDE7JTD40N6qE3eK8MNoyr0RLOeigZ1iNs",
+        authDomain: "arquitecturasoftware-2a62f.firebaseapp.com",
+        databaseURL: "https://arquitecturasoftware-2a62f.firebaseio.com",
+        projectId: "arquitecturasoftware-2a62f",
+        storageBucket: "arquitecturasoftware-2a62f.appspot.com",
+        messagingSenderId: "677121396392",
+        appId: "1:677121396392:web:aacf0dadc7a40b1b",
+        vapidKey: 'BFbSOjbEqXyX-ek63Qkox-5NvnDUZd7bWQy9zWx9YbntHLJ-B_4iEtxQxF0PBMiJGOhsXmm2qYkxOhb1Uupxpkw'
+    }
+    firebase.initializeApp(firebaseConfig);
+    const messaging = firebase.messaging();
+    messaging.usePublicVapidKey(firebaseConfig.vapidKey);
+    messaging.requestPermission().then(function() {
+        console.log('Notification permission granted.');
+        messaging.getToken().then(function(currentToken) {
+            if (currentToken) {
+                console.log("el token es ");
+                console.log(currentToken);
+                messaging.onMessage(function(payload) {
+                    alert(payload.notification.body)
+                    console.log('Message received. ', payload);
+                // ...
+                });
+            } else {
+                console.log('No Instance ID token available');
+            }
+        }).catch(function(err) {
+            console.log('An error occurred while retrieving token. ', err);
+        });
+    }).catch(function(err) {
+            console.log('Unable to get permission to notify.', err);
+    });
     export default {
         name: 'ShowData',
         data(){
@@ -130,8 +165,8 @@
                 possiblePaths: [],
                 fileOrigin: "",
                 fileDestiny: "",
-//                hostname: "http://192.168.99.101:5000/graphql"
-                hostname: "http://34.73.216.116:5000/graphql"
+                //hostname: "http://192.168.99.101:5000/graphql"
+                hostname: "http://35.237.206.16:2870/graphql"
             }
         },
         mounted(){
@@ -212,7 +247,8 @@
                         path: "`+filePath+`"
                     },input:{
                         email: "`+localStorage.email+`"
-                        token: "`+localStorage.token+`"    
+                        token: "`+localStorage.token+`"
+                        mobil: "false"
                     }){
                         base64
                         name
@@ -261,6 +297,7 @@
                                 },input:{
                                     email: "`+localStorage.email+`"
                                     token: "`+localStorage.token+`"
+                                    mobil: "false"
                                 }){
                                     del_id
                                     owner
@@ -290,6 +327,7 @@
                                 },input:{
                                     email:"`+localStorage.email+`",
                                     token:"`+localStorage.token+`"
+                                    mobil: "false"
                                 }){
                                     name
                                     owner
@@ -321,12 +359,18 @@
                                     path
                                 }`
                 })
-                let tmp = res.data.data.downloadList.files;
+                //console.log("downloadList");
+                //console.log(res.data.data.downloadList);
 
-                console.log(res);
-                for (let index = 0; index < tmp.length; index++) {
-                    this.user_files.push(tmp[index])
+                if(res.data.data.downloadList != null){
+                    let tmp = res.data.data.downloadList.files;
+                    for (let index = 0; index < tmp.length; index++) {
+                        this.user_files.push(tmp[index])
+                    }
                 }
+
+
+
             }
             ,
             async createFolder  () {
@@ -340,6 +384,7 @@
                         },input:{
                             email: "`+localStorage.email+`"
                             token: "`+localStorage.token+`"
+                            mobil: "false"
                         }){
                             create_id
                             owner
@@ -360,7 +405,7 @@
                 let data= new FormData()
                 let file =  event.target.files[0]
                 //console.log(file.name);
-                let operations ='{ "query": "mutation($uploads: [Upload!]!){  uploadFiles(files:{    uploads:$uploads    name: \\"'+file.name+'\\"    description:\\"prueba gql\\"    owner: \\"'+localStorage.name.trim()+'\\"  },input:{email:\\"'+localStorage.email+'\\" token: \\"'+localStorage.token+'\\"})  {    name description owner path advise  }}", "variables": { "uploads": [null] } }'
+                let operations ='{ "query": "mutation($uploads: [Upload!]!){  uploadFiles(files:{    uploads:$uploads    name: \\"'+file.name+'\\"    description:\\"prueba gql\\"    owner: \\"'+localStorage.name.trim()+'\\"  },input:{email:\\"'+localStorage.email+'\\" token: \\"'+localStorage.token+'\\" mobil: \\"false\\"})  {    name description owner path advise  }}", "variables": { "uploads": [null] } }'
                 data.append("operations",operations)
                 data.append('map','{ "0": ["variables.uploads.0"] }')
                 data.append('0',file)
@@ -414,6 +459,7 @@
                                     },input:{
                                         email: "`+localStorage.email+`"
                                         token: "`+localStorage.token+`"
+                                        mobil: "false"
                                     })
                                     {
                                         move_id
@@ -432,8 +478,9 @@
             }
 
         },
+        
     }
-
+    
 </script>
 
 <style scoped src='../styles/Data.css' >

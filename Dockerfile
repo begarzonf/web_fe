@@ -9,17 +9,13 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 # install and cache app dependencies
 COPY package.json /app/package.json
-RUN cd /app; npm install
-RUN cd /app; npm install @vue/cli@3.7.0 -g
-RUN cd /app; npm install express express-graphql graphql --save
-RUN cd /app; npm install --save axios
-RUN cd /app; npm install cors --save
-RUN cd /app; npm install downloadjs
-
-COPY . /app
-
-ENV PORT 8050
-EXPOSE 8050
+RUN npm install
+RUN npm install @vue/cli@3.7.0 -g
+RUN npm install express express-graphql graphql --save
+RUN npm install --save axios
+RUN npm install cors --save
+RUN npm install downloadjs
+RUN npm install --save firebase
 
 # start app
 CMD ["npm", "run", "serve"]

@@ -4,6 +4,7 @@
             <img src="../assets/logoFinal.jpg"  alt="" srcset="">
         </div>
         <div >
+            <h1>{{advise}}</h1>
             <div >
                 <input v-model="email" type="email" placeholder="Email">
             </div>
@@ -35,8 +36,8 @@ export default {
             advise:"",
             response:"",
             is_signed: false,
-//                hostname: "http://192.168.99.101:5000/graphql"
-            hostname: "http://34.73.216.116:5000/graphql"
+            //hostname: "http://192.168.99.101:5000/graphql"
+            hostname: "http://35.237.206.16:2870/graphql"
         }
     },
     mounted() {
@@ -50,6 +51,10 @@ export default {
         }
     },
     methods:{
+        adviseError: function(msg){
+            this.advise = msg
+            setTimeout(() => this.advise="", 3000);
+        },
         async postLogin() {
             const res = await axios.post(this.hostname, {
             query:`
@@ -57,6 +62,8 @@ export default {
                 userSession(user:{
                     email: "`+this.email+`"
                     password: "`+this.password+`"
+                    mobil: "false"
+                    messaging: "pruebaaaaa"
                 }){
                     advise
                     token
@@ -80,6 +87,7 @@ export default {
         }else{
             localStorage.session = false
             this.is_signed = false
+            this.adviseError(this.advise)
         }
 
       }

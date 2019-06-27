@@ -1,58 +1,96 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
-  </div>
+    <div  class="login">
+        <div style="clear:both;"></div>
+            <button class="btn"  @click="soap">soap</button>
+            <img v-bind:src="image64"/>
+    </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
-}
+    import axios from 'axios';
+    export default {
+        name: 'ShowData',
+        data(){
+            return{
+                name:"",
+                email:"dsgantivac@unal.edu.co",
+                password:"12345678",
+                token:"",
+                someData: [],
+                upload: [],
+                showCreateFolder: false,
+                showOptions: false,
+                folderOptionName: "",
+                image64:"",
+                folderName: "",
+                MoveToShow: false,
+                number: 1,
+                advise:"",
+                user_files:[],
+                current_path:[],
+                moveReturn: [],
+                possiblePaths: [],
+                fileOrigin: "",
+                fileDestiny: "",
+                //hostname: "http://192.168.99.101:5000/graphql"
+                hostname: "http://35.237.206.16:2870/graphql"
+            }
+        },
+        methods: {
+            async soap (){
+                /*const res = await axios.post(this.hostname, {
+                query:`
+                mutation{
+                  soapConsume(
+                    soap:{
+                      username:"prueba"
+                    }
+                ){
+                  data{
+                    image_base64
+                  }
+                }
+                }`
+        })
+                let imagebase64= res.data.data.soapConsume.data.image64
+                this.image64 = "data:image/jpeg;base64,"+imagebase64
+                 */
+                let prueba = "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo4Njc4OTc4NDJEMzUxMUUzOTFBM0I3RjJCMjVEOEI2RCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo4Njc4OTc4NTJEMzUxMUUzOTFBM0I3RjJCMjVEOEI2RCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjg2Nzg5NzgyMkQzNTExRTM5MUEzQjdGMkIyNUQ4QjZEIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjg2Nzg5NzgzMkQzNTExRTM5MUEzQjdGMkIyNUQ4QjZEIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+mX0bwAAAAL9JREFUeNpsz78LgUEcx/F7OIOUUga7Tf4LJaWsZvWUXTZRSlJYKAazbIqyK4t/wKiUgcGkSH6/v3VyxadeXU/3uXu+57jLmDIJIowdrhgi+9n0wIcuDlijigf6eH2KGhXk0MEZDSQwgYOnXChFFzMUzeEUxvCbg2nkpRjBXX0Tt0oZzLHQ6jctM9tKCqihru2BrbTNWkAJI3n1BgH1PyHcsNXmV/LiKS5WyYskBjhKsYcTyohaxb3MhqZ8vAUYAP8OKf0qLt2tAAAAAElFTkSuQmCC"
+                this.image64 = "data:image/jpeg;base64,"+prueba
+
+                
+            }
+            ,
+
+        },
+    }
+
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style scoped src='../styles/Data.css' >
+
 </style>
+
+<!--
+https://stackoverflow.com/questions/49587831/how-to-append-files-and-data-to-formdata-in-vue-js
+
+var files=[fs.createReadStream('/home/diego/Imágenes/test.png')]
+    var options = {
+      method: 'POST',
+      url: 'http://localhost:5000/graphql',
+      headers:
+        { 'Content-Type': 'multipart/form-data' },
+      formData:
+      {
+        operations: '{ "query": "mutation($uploads: [Upload!]!){\\n  uploadFiles(files:{\\n    uploads:$uploads\\n    name: \\"graphql\\"\\n    description:\\"prueba gql\\"\\n    owner: \\"diegun\\"\\n  },input:{email:\\"unemail2@gmail.com\\"\\n token: \\"QnIcrnWpvU\\"})\\n  {\\n    name\\n description\\n owner\\n path\\n advise\\n  }\\n}\\n", "variables": { "uploads": '+ files+'} }'
+      }
+    };
+
+
+    curl http://192.168.99.101:5000/graphql   -F operations='{ "query": "mutation($uploads: [Upload!]!){\n  uploadFiles(files:{\n    uploads:$uploads\n    name: \"graphql\"\n    description:\"prueba gql\"\n    owner: \"david\"\n  },input:{email:\"dsgantivac@unal.edu.co\"\n token: \"BdDuQjgGnW\"})\n  {\n    name\n description\n owner\n path\n advise\n  }\n}\n", "variables": { "uploads": [null] } }'   -F map='{ "0": ["variables.uploads.0"] }'   -F 0=@/home/gantiva/Downloads/logoFinal.jpg
+
+
+
+
+
+-->
