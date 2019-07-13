@@ -107,9 +107,12 @@
 <script>
     import axios from 'axios';
     import download from 'downloadjs'
+/*
     import * as firebase from "firebase/app";
     import "firebase/messaging";
+*/
 /*
+    ESTO  SI SE QUEDA COMENTADO
     const firebaseConfig = {
         apiKey: "AIzaSyDE7JTD40N6qE3eK8MNoyr0RLOeigZ1iNs",
         authDomain: "arquitecturasoftware-2a62f.firebaseapp.com",
@@ -121,6 +124,7 @@
         vapidKey: 'BFbSOjbEqXyX-ek63Qkox-5NvnDUZd7bWQy9zWx9YbntHLJ-B_4iEtxQxF0PBMiJGOhsXmm2qYkxOhb1Uupxpkw'
     }
 */
+/*
     //firebase.initializeApp(firebaseConfig);
     const messaging = firebase.messaging();
     //messaging.usePublicVapidKey(firebaseConfig.vapidKey);
@@ -144,6 +148,8 @@
     }).catch(function(err) {
             console.log('Unable to get permission to notify.', err);
     });
+*/
+
     export default {
         name: 'ShowData',
         data(){

@@ -25,6 +25,7 @@
 
 <script>
 import axios from 'axios'
+/*
 import * as firebase from "firebase/app";
     import "firebase/messaging";
     var firebaseToken = ""
@@ -63,7 +64,7 @@ import * as firebase from "firebase/app";
             console.log('Unable to get permission to notify.', err);
     });
 
-
+*/
 
 
 export default {
@@ -104,7 +105,7 @@ export default {
                     email: "`+this.email+`"
                     password: "`+this.password+`"
                     mobil: "false"
-                    messaging: "`+firebaseToken+`"
+                    messaging: "firebaseToken"
                 }){
                     advise
                     token
