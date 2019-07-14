@@ -79,7 +79,7 @@ export default {
             response:"",
             is_signed: false,
             //hostname: "http://192.168.99.101:5000/graphql"
-            hostname: "http://undrive-api:5000/graphql"
+            hostname: "http://undrive-proxy:2870/graphql"
         }
     },
     mounted() {
